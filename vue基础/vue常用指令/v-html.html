@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>v-html</title>
+    <script src="../../js/vue.js"></script>
+
+</head>
+<body>
+<div id="app">
+    <div v-text="myHtml"></div>
+    <div v-html="myHtml"></div>
+
+</div>
+</body>
+
+<script type="text/javascript">
+
+    // - 用法和v-text 相似  但是他可以将HTML片段填充到标签中
+    //
+    // - 可能有安全问题, 一般只在可信任内容上使用 `v-html`，**永不**用在用户提交的内容上
+    //
+    // - 它与v-text区别在于v-text输出的是纯文本，浏览器不会对其再进行html解析，但v-html会将其当html标签解析后输出。
+
+    var vm = new Vue({
+        el:'#app',
+        data:{
+            msg:"sadfscscsdsdfdf",
+            myHtml:"<p>This a P</p>"
+        }
+    })
+</script>
+
+</html>

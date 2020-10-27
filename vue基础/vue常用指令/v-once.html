@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>v-once</title>
+    <script src="../../js/vue.js"></script>
+</head>
+<body>
+    <div id="app">
+        <div>{{msg}}</div>
+        <div v-once>{{msg}}</div>
+    </div>
+</body>
+
+<script type="text/javascript">
+
+    // 执行一次性的插值【当数据改变时，插值处的内容不会继续更新】
+
+    var vm = new Vue({
+        el:'#app',
+        data:{
+            msg:"csjdjgjjsjjhgf"
+        }
+
+    })
+
+</script>
+
+</html>

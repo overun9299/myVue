@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>v-text</title>
+    <script src="../../js/vue.js"></script>
+</head>
+<body>
+    <div id="app">
+        <!-- v-text不会出现加载时闪烁的问题 -->
+        <p v-text="msg"></p>
+        <div>{{msg}}</div>
+    </div>
+</body>
+
+<script type="text/javascript">
+
+    // - v-text指令用于将数据填充到标签中，作用于插值表达式类似，但是没有闪动问题
+    // - 如果数据中有HTML标签会将html标签一并输出
+    // - 注意：此处为单向绑定，数据对象上的值改变，插值会发生变化；但是当插值发生变化并不会影响数据对象的值
+
+    var vm = new  Vue({
+        el:'#app',
+        data: {
+            msg:"Hkaskdjfkas"
+        }
+    })
+</script>
+
+</html>

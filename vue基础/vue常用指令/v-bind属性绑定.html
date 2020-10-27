@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>v-bind属性绑定</title>
+    <script src="../../js/vue.js"></script>
+</head>
+<body>
+    <div id="app">
+        <img src="" alt="" v-bind:src="imgUrl">
+        <buttom @click="changeImg">切换</buttom>
+    </div>
+</body>
+
+<script type="text/javascript">
+
+    var vm = new Vue({
+        el:'#app',
+        data:{
+            imgUrl:"../../img/8.png"
+        },
+        methods: {
+            changeImg() {
+                if (this.imgUrl == '../../img/8.png') {
+                    this.imgUrl = "../../img/11.png"
+                } else {
+                    this.imgUrl = "../../img/8.png"
+                }
+
+            }
+        }
+    })
+</script>
+
+</html>

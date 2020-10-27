@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>v-if</title>
+    <script src="../../js/vue.js"></script>
+</head>
+<body>
+    <div id="app">
+        <div>{{labs}}</div>
+        <div v-if="labs > 80">优秀</div>
+        <!--v-else-if紧跟在v-if或v-else-if之后   表示v-if条件不成立时执行-->
+        <div v-else-if="60<labs<80">一般</div>
+        <!--v-else紧跟在v-if或v-else-if之后-->
+        <div v-else>差劲</div>
+        <input type="text" v-model="labs">
+    </div>
+</body>
+
+<script type="text/javascript">
+
+    // v-show 和 v-if的区别
+    // - v-show本质就是标签display设置为none，控制隐藏
+    // - v-show只编译一次，后面其实就是控制css，而v-if不停的销毁和创建，故v-show性能更好一点。
+    // - v-if是动态的向DOM树内添加或者删除DOM元素
+    // - v-if切换有一个局部编译/卸载的过程，切换过程中合适地销毁和重建内部的事件监听和子组件
+
+
+    var vm = new Vue({
+        el:'#app',
+        data:{
+            labs:80
+        }
+    })
+</script>
+
+</html>

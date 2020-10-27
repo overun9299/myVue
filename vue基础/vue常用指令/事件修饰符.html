@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>事件修饰符</title>
+    <script src="../../js/vue.js"></script>
+
+    <style>
+        #app > div {
+            width: 100px;
+            height: 100px;
+            background-color: firebrick;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <div>{{num}}</div>
+        <div @click="myClick">
+            <!--阻止单击事件继续传播 阻止冒泡-->
+            <buttom @click.stop="myClick2">点击</buttom>
+            <!--阻止默认事件-->
+            <a href="www.baidu.com" v-on:click.prevent>百度</a>
+        </div>
+    </div>
+</body>
+
+<script type="text/javascript">
+    var vm = new Vue({
+        el:'#app',
+        data:{
+            num:1
+        },
+        methods: {
+            myClick() {
+                this.num++;
+            },
+            myClick2() {
+                console.log(this.num)
+            }
+        }
+
+    })
+</script>
+
+</html>

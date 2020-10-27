@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>v-cloak</title>
+    <script src="../../js/vue.js"></script>
+
+    <style type="text/css">
+        [v-cloak] {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <div v-cloak>{{msg}}</div>
+    </div>
+
+</body>
+
+<script type="text/javascript">
+
+    // 2、 让带有插值 语法的   添加 v-cloak 属性
+    // 在 数据渲染完场之后，v-cloak 属性会被自动去除，
+    //      v-cloak一旦移除也就是没有这个属性了  属性选择器就选择不到该标签
+    // 也就是对应的标签会变为可见
+
+    var vm = new Vue({
+        // 指定元素 id 是 app 的元素
+        el:"#app",
+        //  data  里面存储的是数据
+        data:{
+            msg:"HelloWord"
+        }
+
+    });
+</script>
+
+</html>

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>HelloWorld</title>
+    <!--1.引入vue的js-->
+    <script src="../../js/vue.js"></script>
+</head>
+<body>
+    <div id="app">
+        <!--数据驱动视图 , 插值表达式-->
+        <div>{{msg}}</div>
+        <!--支持简单的表达式-->
+        <div>{{1+2}}</div>
+    </div>
+
+
+</body>
+<script type="text/javascript">
+    <!--  创建vue对象  -->
+    var vm = new Vue({
+        el: '#app',
+        data: {
+            msg:"HelloWorld"
+        }
+    });
+
+</script>
+</html>

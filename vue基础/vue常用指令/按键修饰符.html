@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>按键修饰符</title>
+    <script src="../../js/vue.js"></script>
+</head>
+<body>
+    <div id="app">
+        <!--直在输入 1(对的键盘码为49) 时有效-->
+        <input type="text" v-on:keyup.49="submits" >
+        <input type="text" v-on:keyup.super="submits" >
+    </div>
+</body>
+
+<script type="text/javascript">
+
+    <!--自定义按键标识符-->
+    Vue.config.keyCodes.super = 50;
+    var vm = new Vue({
+        el:'#app',
+        data:{
+            msg:"scscsc"
+        },
+        methods:{
+            submits(e){
+                console.log(123)
+                console.log(e.keyCode)
+            }
+        }
+    })
+</script>
+
+</html>

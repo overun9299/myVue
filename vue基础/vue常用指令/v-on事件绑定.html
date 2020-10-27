@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>v-on</title>
+    <script src="../../js/vue.js"></script>
+</head>
+<body>
+    <div id="app">
+        <div>{{num}}</div>
+        <buttom v-on:click="num++">点击1</buttom>
+        <buttom @click="num++">点击2</buttom>
+        <buttom @click="myClick">点击3</buttom>
+        <!--<buttom @click="myClick()">点击4</buttom>-->
+    </div>
+</body>
+
+<script type="text/javascript">
+
+    var vm = new Vue({
+        el:'#app',
+        data: {
+            num:0
+        },
+        methods: {
+            // myClick:function () {
+            //     this.num++;
+            // }
+            myClick(e) {
+                console.log(e)
+                this.num++;
+            }
+
+        }
+    })
+
+</script>
+
+</html>
