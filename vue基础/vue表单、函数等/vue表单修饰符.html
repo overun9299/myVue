@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>vue表单修饰符$</title>
+  <script src="../../js/vue.js"></script>
+</head>
+<body>
+  <div id="app">
+
+    <!--.number  转换为数值-->
+
+    <!-- - 注意点：-->
+    <!-- - 当开始输入非数字的字符串时，因为Vue无法将字符串转换成数值-->
+    <!-- - 所以属性值将实时更新成相同的字符串。即使后面输入数字，也将被视作字符串。-->
+    <div>{{1+cscs}}</div>
+    <input type="text" v-model.number="cscs">
+
+    <!--.trim  自动过滤用户输入的首尾空白字符-->
+
+    <!-- - 只能去掉首尾的 不能去除中间的空格-->
+    <div>{{vbvb.length}}</div>
+    <input type="text" v-model.trim="vbvb">
+
+
+    
+  </div>
+</body>
+<script type="text/javascript">
+    var vm = new Vue({
+      el:'#app',
+      data:{
+        cscs:'',
+        vbvb:''
+      }
+    })
+</script>
+</html>

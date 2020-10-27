@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <title>vue表单</title>
+    <script src="../../js/vue.js"></script>
+
+</head>
+
+<body>
+<div id="app">
+
+    <!--单选框-->
+    <!-- 如果绑定了通一个v-model 那么radio的name可以不用设置 -->
+    <input type="radio" value="1" v-model="gender">
+    <label for="male">男</label>
+
+    <input type="radio" value="2" v-model="gender">
+    <label for="female">女</label>
+
+
+    <input type="text" v-model="gender">
+
+    <div>
+        <!--  复选框  -->
+        <span>爱好：</span>
+        <input type="checkbox" value="1" v-model="hobby">
+        <label for="">篮球</label>
+        <input type="checkbox" value="2" v-model="hobby">
+        <label for="">足球</label>
+        <input type="checkbox" value="3" v-model="hobby">
+        <label for="">乒乓球</label>
+
+    </div>
+
+
+    <div>
+        <!--  下拉框  -->
+        <span>职业：</span>
+        <select v-model="cpu">
+            <option value="0">3700X</option>
+            <option value="2">3800X</option>
+            <option value="3">3900X</option>
+            <option value="4">3950X</option>
+            <option value="5">9900K</option>
+
+        </select>
+
+
+    </div>
+</div>
+</body>
+
+<script type="text/javascript">
+
+    var vm = new Vue({
+        el:'#app',
+        data:{
+            gender:1,
+            hobby:[1,2,3],
+            cpu:4
+        }
+    })
+</script>
+</html>
