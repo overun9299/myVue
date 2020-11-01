@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <meta charset="UTF-8">
+  <title>2-Vue局部注册$</title>
+  <script src="../../js/vue.js"></script>
+</head>
+<body>
+<div id="app">
+  <my-component></my-component>
+  <my-component></my-component>
+</div>
+</body>
+<script type="text/javascript">
+
+  // 定义组件的模板
+  let chila = {
+    template: '<div><strong>RTX 3090Ti</strong></div>'
+  }
+
+    new Vue({
+      el:'#app',
+
+
+      //局部注册组件
+      components: {
+        // <my-component> 将只在父模板可用  一定要在实例上注册了才能在html文件中使用
+        'my-component':chila
+      }
+    })
+</script>
+</html>

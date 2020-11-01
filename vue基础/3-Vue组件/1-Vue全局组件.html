@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>1-Vue全局组件$</title>
+  <script src="../../js/vue.js"></script>
+
+</head>
+<body>
+  <div id="app">
+
+    <my-component></my-component>
+    <my-component></my-component>
+
+    <!--
+       4、  组件可以重复使用多次
+         因为data中返回的是一个对象所以每个组件中的数据是私有的
+         即每个实例可以维护一份被返回对象的独立的拷贝
+    -->
+    <button-count></button-count>
+    <button-count></button-count>
+    <button-count></button-count>
+  </div>
+</body>
+<script type="text/javascript">
+
+    //5  如果使用驼峰式命名组件，那么在使用组件的时候，只能在字符串模板中用驼峰的方式使用组件，
+    // 7、但是在普通的标签模板中，必须使用短横线的方式使用组件
+
+
+    // - Vue.component('组件名称', { })     第1个参数是标签名称，第2个参数是一个选项对象
+    // - **全局组件**注册后，任何**vue实例**都可以用
+    Vue.component('my-component',{
+      template:'<div><strong>RTX 3080</strong></div>'
+    })
+
+    Vue.component('button-count',{
+
+      // 1、组件参数的data值必须是函数
+      // 同时这个函数要求返回一个对象
+      data: function () {
+        return {
+          count:0,
+        }
+      },
+
+      //  2、组件模板必须是单个根元素
+      //  3、组件模板的内容可以是模板字符串
+      template: `
+        <div><button @click="myCount">{{this.count}}</button></div>
+      `,
+      methods: {
+        myCount() {
+          this.count ++;
+        }
+      }
+
+
+    })
+    new Vue({
+      el:'#app'
+    })
+</script>
+</html>
