@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>3-vue自定义指令$</title>
+    <script src="../../js/vue.js"></script>
+
+
+</head>
+<body>
+<div id="app">
+    <input type="text" v-focus>
+</div>
+
+
+</body>
+<script type="text/javascript">
+
+    // 1、 在自定义指令中  如果以驼峰命名的方式定义 如  Vue.directive('focusA',function(){})
+
+    // 2、 在HTML中使用的时候 只能通过 v-focus-a 来使用
+
+    Vue.directive('focus',{
+        inserted:function (el) {
+            el.focus()
+        }
+    });
+    new Vue({
+        el:'#app'
+    });
+
+</script>
+</html>

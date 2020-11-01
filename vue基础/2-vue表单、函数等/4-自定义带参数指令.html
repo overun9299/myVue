@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>4-自定义带参数指令$</title>
+    <script src="../../js/vue.js"></script>
+
+</head>
+<body>
+<div id="app">
+
+    <input type="text" v-color='msg' v-font="fontC">
+</div>
+<div id="app2">
+    <input type="text" v-color='msg'>
+</div>
+</body>
+<script type="text/javascript">
+
+    <!-- 全局指令，任何一个Vue实例都可以使用 -->
+    Vue.directive('color',{
+        bind: function (el,binding) {
+            el.style.backgroundColor = binding.value.color;
+        }
+    })
+
+    new Vue({
+        el:'#app',
+        data:{
+            msg: {color:'blue'},
+            fontC: {fontColor:'red'}
+        },
+
+        // 局部指令，只有app的元素和子元素可以使用
+        directives: {
+            font: {
+                bind:function (el , binding) {
+                    el.style.color = binding.value.fontColor;
+                }
+            }
+        }
+
+    })
+
+    new Vue({
+        el:'#app2'
+    })
+
+</script>
+</html>

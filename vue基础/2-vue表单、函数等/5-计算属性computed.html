@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>5-计算属性computed$</title>
+  <script src="../../js/vue.js"></script>
+</head>
+<body>
+<div id="app">
+
+  <div>{{diandao()}}</div>
+  <div>{{diandao()}}</div>
+  <div>{{diaohuan}}</div>
+  <div>{{diaohuan}}</div>
+
+</div>
+</body>
+<script type="text/javascript">
+
+
+  // - 模板中放入太多的逻辑会让模板过重且难以维护  使用计算属性可以让模板更加的简洁
+  // - **计算属性是基于它们的响应式依赖进行缓存的**
+  // - computed比较适合对多个变量或者对象进行处理后返回一个结果值，也就是数多个变量中的某一个值发生了变化则我们监控的这个值也就会发生变化
+
+  var vm = new Vue({
+    el:'#app',
+    data:{
+      msg:'SDasdfasdfasdf',
+      num:100
+    },
+    // 在输出台观察，method被输出了两次    computed只输出了一次
+    methods:{
+      diandao() {
+        console.log('method')
+        return this.msg.split('').reverse().join('');
+      }
+    },
+    computed: {
+      diaohuan() {
+        console.log('computed')
+        return this.msg.split('').reverse().join('');
+      }
+    }
+  })
+</script>
+</html>

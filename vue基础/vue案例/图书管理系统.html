@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <title>图书管理系统$</title>
+    <script src="../../js/vue.js"></script>
+    <script src="../../js/time.js"></script>
+    <style>
+        .myTable {
+            margin: 0 auto;
+            border: 0;
+        }
+        .myTable a {
+            text-decoration: none;
+            color: blue;
+        }
+        table td {
+            width: 180px;
+            height: 31px;
+            text-align: center;
+            border: 1px seagreen solid;
+        }
+        table thead td {
+            background-color: greenyellow;
+        }
+        table tbody td {
+            background-color: silver;
+        }
+
+        .adds {
+            width: 700px;
+            /*background-color: blue;*/
+            margin: 50px auto 10px;
+        }
+        .adds input {
+            height: 24px;
+            width: 200px;
+        }
+    </style>
+
+</head>
+<body>
+    <div id="app">
+        <div class="adds">
+            <!--<input type="text" v-model="inputId" placeholder="编号">-->
+            <input type="text" v-model="inputName" placeholder="名称">
+            <a href="" @click.prevent="addData">添加</a>
+        </div>
+
+        <table class="myTable" cellpadding="0" cellspacing="0">
+            <thead>
+                <tr>
+                    <td>编号</td>
+                    <td>名称</td>
+                    <td>时间</td>
+                    <td>操作</td>
+                </tr>
+            </thead>
+            <tbody>
+                <tr v-for="(item , index) in LESSONList">
+                    <td>{{index+1}}</td>
+                    <td>{{item.name}}</td>
+                    <td>{{item.date | getTime}}</td>
+                    <td><a href="" @click.prevent="deleteData(index)">删除</a></td>
+                </tr>
+
+
+            </tbody>
+
+        </table>
+
+
+    </div>
+</body>
+<script type="text/javascript">
+
+    new Vue({
+        el:'#app',
+        data:{
+            LESSONList:[
+                {
+                    id:1,
+                    name:'JavaScript',
+                    date:new Date(),
+                },
+                {
+                    id:2,
+                    name:'ES6',
+                    date:new Date(),
+                },
+                {
+                    id:3,
+                    name:'RTX',
+                    date:new Date(),
+                },
+            ],
+            // inputId:'',
+            inputName:''
+        },
+        methods: {
+            deleteData(index) {
+                console.log(index)
+                this.LESSONList.splice(index , 1);
+            },
+            addData() {
+                console.log(this.inputName)
+                let data = {
+                    name:this.inputName,
+                    date:new Date()
+                }
+                this.LESSONList.push(data);
+                this.inputName = ''
+            }
+        },
+        filters : {
+            getTime(date) {
+                return dateFormat(date,'yyyy-MM-dd hh:mm:ss')
+            }
+        }
+    })
+
+</script>
+</html>

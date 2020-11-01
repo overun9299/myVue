@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>7-Vue过滤器$</title>
+  <script src="../../js/vue.js"></script>
+  <script src="../../js/time.js"></script>
+</head>
+<body>
+  <div id="app">
+      <div>{{date | TimeFilter(formats)}}</div>
+    <input type="text" v-model.lazy="formats">
+  </div>
+</body>
+<script type="text/javascript">
+    new Vue({
+      el:'#app',
+      data: {
+        date: new Date(),
+        formats:'yyyy-MM-dd'
+      } ,
+      filters: {
+        TimeFilter: function (vas, scsc) {
+          console.log(scsc)
+          return dateFormat(vas , scsc);
+        }
+      }
+
+    })
+</script>
+</html>
