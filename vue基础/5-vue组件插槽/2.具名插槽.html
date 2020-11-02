@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <meta charset="UTF-8">
+  <title>2.具名插槽$</title>
+  <script src="../../js/vue.js"></script>
+</head>
+<body>
+    <div id="app">
+      <one>
+        <div slot="slotone">我是插槽内容1</div>
+        <div slot="slotone">我是插槽内容11</div>
+        <div slot="slottwo">我是插槽内容2</div>
+        <div slot="slottwo">我是插槽内容22</div>
+        <div>我是插槽内容不带名称22</div>
+
+
+        <!--
+            <template v-slot:one>
+                <div>我是追加的内容1</div>
+                <div>我是追加的内容11</div>
+            </template>
+            <template v-slot:two>
+                <div>我是追加的内容2</div>
+                <div>我是追加的内容22</div>
+            </template>
+            -->
+        <!--v-bind: :  v-on: @-->
+        <template #slotone>
+          <div>我是追加的内容1-s</div>
+          <div>我是追加的内容11-s</div>
+        </template>
+        <template #slottwo>
+          <div>我是追加的内容2-s</div>
+          <div>我是追加的内容22-s</div>
+        </template>
+
+
+      </one>
+    </div>
+
+    <template id="one">
+      <div>
+        <p>我是头部</p>
+        <slot name="slotone">默认具名</slot>
+        <slot name="slottwo">默认具名</slot>
+        <slot>默认具名</slot>
+        <p>我是底部</p>
+      </div>
+    </template>
+</body>
+<script type="text/javascript">
+    Vue.component('one',{
+      template:'#one'
+    })
+
+    new Vue({
+      el:'#app',
+      data: {
+
+      }
+    })
+</script>
+</html>
