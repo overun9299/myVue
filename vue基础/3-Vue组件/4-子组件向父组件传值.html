@@ -7,12 +7,30 @@
 </head>
 <body>
     <div id="app">
-
+        <div :style='{fontSize:this.ffsize + "px"}'>sdfjsdjfj</div>
+        <meun-list @sizes="changes($event)"></meun-list>
     </div>
 </body>
 <script type="text/javascript">
+
+    // - 子组件用`$emit()`触发事件
+    // - `$emit()`  第一个参数为 自定义的事件名称     第二个参数为需要传递的数据
+    // - 父组件用v-on 监听子组件的事件
+
+    Vue.component('meun-list',{
+        template:`<div><button @click='$emit("sizes",5)'>增大</button></div>`
+    })
+
     new Vue({
-        el:'#app'
+        el:'#app',
+        data:{
+            ffsize:32
+        },
+        methods: {
+            changes(val) {
+                this.ffsize +=val;
+            }
+        }
     })
 </script>
 </html>

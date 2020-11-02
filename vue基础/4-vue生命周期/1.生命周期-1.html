@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <title>1.声明周期-1</title>
+    <script src="../../js/vue.js"></script>
+</head>
+<body>
+
+    <!--
+    1.什么是生命周期方法?
+    和wbpack生命周期方法一样, 都是在从生到死的特定阶段调用的方法
+    PS: 生命周期钩子 = 生命周期函数 = 生命周期事件
+    2.Vue生命周期方法分类
+    2.1创建期间的生命周期方法
+        beforeCreate:
+        created:
+        beforeMount:
+        mounted:
+    2.2运行期间的生命周期方法
+        beforeUpdate:
+        updated:
+    2.3销毁期间的生命周期方法
+        beforeDestroy:
+        destroyed：
+    -->
+    <!--这里就是MVVM中的View-->
+
+    <div id="app">
+        <p>{{msg}}</p>
+        <button @click="changeBoon">创建、销毁</button>
+        <one v-if="boon"><p>我是一个组件</p></one>
+    </div>
+
+
+    <template id="one">
+        <div>
+            <p>{{msg}}</p>
+        </div>
+    </template>
+</body>
+
+<script type="text/javascript">
+
+    Vue.component('one',{
+        template:'#one',
+        data: function () {
+            return {
+                msg:'我是个龙'
+            }
+
+        },
+        methods: {
+            say() {
+                return this.msg
+            }
+        },
+        beforeDestroy: function(){
+            /*
+            在调用beforeDestroy的时候, 表示当前组件即将被销毁了
+            注意点: 只要组件不被销毁, 那么beforeDestroy就不会调用
+                    beforeDestroy函数是我们最后能够访问到组件数据和方法的函数
+            * */
+            console.log(this.msg + '-----beforeDestroy');
+            console.log(this.say() + '-----beforeDestroy');
+        },
+        destroyed: function(){
+            /*
+            在调用destroyed的时候, 表示当前组件已经被销毁了
+            注意点: 只要组件不被销毁, 那么destroyed就不会调用
+                    不要在这个生命周期方法中再去操作组件中数据和方法
+            * */
+            console.log("destroyed");
+        }
+    })
+
+
+    let vm = new Vue({
+        el:'#app',
+        data: {
+            msg:'我是一个人',
+            boon: true
+        },
+        methods: {
+            changeBoon() {
+                this.boon = !this.boon;
+            }
+        },
+
+        beforeCreate: function () {
+            // 在调用beforeCreate的时候, 仅仅表示Vue实例刚刚被创建出来
+            // 此时此刻还没有初始化好Vue实例中的数据和方法, 所以此时此刻还不能访问Vue实例中保存的数据和方法
+            console.log(this.msg+'-----beforeCreate')
+        },
+        created: function () {
+            // 在调用created的时候, 是我们最早能够访问Vue实例中保存的数据和方法的地方
+            console.log(this.msg+'-----create')
+        },
+        beforeMount: function () {
+            // 在调用beforeMount的时候, 表示Vue已经编译好了最终模板, 但是还没有将最终的模板渲染到界面上
+            console.log(document.querySelector('p').innerHTML+'-----beforeMount')
+            console.log(document.querySelector('p').innerText+'-----beforeMount')
+        },
+        mounted: function () {
+            // 在调用mounted的时候, 表示Vue已经完成了模板的渲染, 表示我们已经可以拿到界面上渲染之后的内容了
+            console.log(document.querySelector('p').innerHTML+'-----mounted')
+            console.log(document.querySelector('p').innerText+'-----mounted')
+        },
+        beforeUpdate: function () {
+            // 在调用beforeUpdate的时候, 表示Vue实例中保存的数据被修改了
+            // 注意点: 只有保存的数据被修改了才会调用beforeUpdate, 否则不会调用
+            // 注意点: 在调用beforeUpdate的时候, 数据已经更新了, 但是界面还没有更新
+            console.log(this.msg+'-----beforeUpdate');
+            console.log(document.querySelector('p').innerHTML+'-----beforeUpdate')
+            console.log(document.querySelector('p').innerText+'-----beforeUpdate')
+        },
+        updated: function () {
+            // 在调用updated的时候, 表示Vue实例中保存的数据被修改了, 并且界面也同步了修改的数据了
+            // 也就是说: 数据和界面都同步更新之后就会调用updated
+            console.log(this.msg+'-----updated');
+            console.log(document.querySelector('p').innerHTML+'-----updated')
+            console.log(document.querySelector('p').innerText+'-----updated')
+        }
+    })
+</script>
+
+</html>
