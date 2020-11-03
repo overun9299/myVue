@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <meta charset="UTF-8">
+  <title>2.Vuex的getters属性$</title>
+  <script src="../../js/vue.js"></script>
+  <script src="../../js/vuex.js"></script>
+</head>
+<body>
+<div id="app">
+  <p>{{getMsg}}</p>
+  <p>{{getMsg}}</p>
+  <p>{{getMsg}}</p>
+  <p>{{this.$store.getters.getMsgs}}</p>
+  <p>{{this.$store.getters.getMsgs}}</p>
+  <p>{{this.$store.getters.getMsgs}}</p>
+</div>
+</body>
+<script type="text/javascript">
+    const store = new Vuex.Store({
+      state: {
+        msgs:'我的天哪1'
+      },
+      getters: {
+        getMsgs(state) {
+          console.log('getters被执行了')
+          return state.msgs + '++++'
+        }
+      }
+    })
+    new Vue({
+      el:'#app',
+      store: store,
+      data: {
+        msg:'我是一个人'
+      },
+
+      computed: {
+        getMsg() {
+          console.log('计算属性被执行了')
+          return this.msg + '+++++';
+        }
+      }
+    })
+</script>
+</html>
