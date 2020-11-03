@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <meta charset="UTF-8">
+  <title>1.Vuex共享数据$</title>
+  <script src="../../js/vue.js"></script>
+  <script src="../../js/vuex.js"></script>
+</head>
+<body>
+<!--
+1.当前在企业开发中我们遇到了两个问题:
+1.如果想要在子组件中使用祖先组件中的数据, 那么就必须一层一层的传递(非常麻烦)
+2.兄弟组件之间不能直接传递数据, 如果兄弟组件之间想要传递数据, 那么就必须借助父组件(非常麻烦)
+解决方案: 使用Vuex
+
+2.什么是Vuex?
+vuex 是 Vue 配套的 公共数据管理工具，我们可以将共享的数据保存到 vuex 中，
+方便整个程序中的任何组件都可以获取和修改vuex中保存的公共数据
+
+注意点:
+必须在引入Vue之后再引入Vuex
+只有需要共享的才放到vuex上, 不需要共享的数据依然放到组件自身的data上
+-->
+<!--这里就是MVVM中的View-->
+<div id="app">
+  <father></father>
+
+</div>
+<template id="father">
+  <div>
+    <son1></son1>
+    <son2></son2>
+  </div>
+
+</template>
+<template id="son1">
+    <div>
+      <p>我是儿子1</p>
+      <p>{{this.$store.state.msg}}</p>
+      <button @click="add">添加-1</button>
+      <button @click="sub">减少-1</button>
+      <input type="text" :value="this.$store.state.count">
+    </div>
+</template>
+<template id="son2">
+  <div>
+      <p>我是儿子2</p>
+    <p>{{this.$store.state.msg}}</p>
+    <button @click="add">添加-2</button>
+    <button @click="sub">减少-2</button>
+    <input type="text" :value="this.$store.state.count">
+  </div>
+</template>
+</body>
+<script type="text/javascript">
+  // 创建Vuex对象
+  const store = new Vuex.Store({
+    // 这里的state就相当于组件中的data, 就是专门用于保存共享数据的
+    state: {
+      msg:'我是个人',
+      count: 0
+    },
+    // mutations: 用于保存修改共享数据的方法
+    mutations: {
+      // 注意点: 在执行mutations中定义的方法的时候, 系统会自动给这些方法传递一个state参数
+      //         state中就保存了共享的数据
+      addM(state,val){
+        console.log(val)
+        state.count += 1;
+      },
+      subM(state){
+        state.count -= 1;
+      }
+    }
+  })
+
+
+  // 注意点: 在Vuex中不推荐直接修改共享数据
+  // 如果多个组件都修改了共享的数据, 那么后期数据发生了错误, 我们如果需要去调试错误
+  // 就需要把每一个修改了共享数据的组件都检查一遍, 这样非常低效, 非常的不利于我们去维护
+  Vue.component('father',{
+    template:'#father',
+    store: store,
+    components: {
+      'son1': {
+        template: '#son1',
+        methods: {
+          add() {
+
+            this.$store.commit('addM',10)
+          },
+          sub() {
+
+            this.$store.commit('subM')
+          }
+        }
+      },
+      'son2': {
+        template: '#son2',
+        methods: {
+          add() {
+            this.$store.commit('addM',10)
+          },
+          sub() {
+            this.$store.commit('subM')
+          }
+        }
+      }
+    }
+  })
+
+  new Vue({
+    el:'#app',
+    data: {
+
+    }
+  })
+</script>
+</html>
