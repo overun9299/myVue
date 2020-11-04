@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <title>3.作用域插槽</title>
+    <script src="../../js/vue.js"></script>
+</head>
+<body>
+<div id="app">
+    <father></father>
+</div>
+
+<template id="father">
+    <div>
+        <son>
+
+            <!--slot-scope="abc"作用: 接收子组件插槽暴露的数据-->
+            <!--作用域插槽的应用场景: 子组件提供数据, 父组件决定如何渲染-->
+            <template slot-scope="abc">
+                <li v-for="(item,index) in abc.lists">{{item}}</li>
+            </template>
+        </son>
+    </div>
+
+</template>
+
+
+<template id="son">
+    <div>
+        <p>这是头部2</p>
+
+        <!--v-bind:names="names"作用: 将当前子组件的names数据暴露给父组件 !!!!!!!!!!!!!!-->
+        <slot v-bind:lists="lists"></slot>
+    </div>
+
+</template>
+
+</body>
+
+<script type="text/javascript">
+
+    Vue.component('father',{
+        template:'#father',
+
+        components: {
+            'son': {
+                template: '#son',
+                data: function () {
+                    return {
+                        lists:['RTX' , 'GTX' , 'REB']
+                    }
+                }
+            }
+        }
+    });
+
+
+ new Vue({
+     el:'#app',
+     data: {
+
+     }
+ })
+</script>
+
+</html>

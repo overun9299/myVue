@@ -7,13 +7,77 @@
 </head>
 <body>
     <div id="app">
-
+        <father></father>
     </div>
-    <template id="tep1"></template>
-    <template id="tep2"></template>
+
+
+    <template id="father">
+        <div>
+            <tepone @getchange="getcount($event)"></tepone>
+            <tep2 :sums="sums"></tep2>
+        </div>
+    </template>
+    <template id="tepone">
+        <div>
+            <button @click="add">添加</button>
+            <button @click="sub">减少</button>
+            <input type="text" :value="count">
+        </div>
+    </template>
+    <template id="tep2">
+        <div>{{sums}}</div>
+    </template>
 </body>
 
 <script type="text/javascript">
+
+
+    /*
+        如何实现儿子中的数据和父亲中的数据同步
+        1.父亲给儿子传递一个方法
+        2.在儿子中修改数据
+        3.儿子中修改完数据, 调用父亲传递过来的方法, 并且将修改之后的数据传递给父亲的方法
+        4.在父亲的方法中保存最新的数据
+    * */
+
+    Vue.component('father',{
+        template:'#father',
+        data: function() {
+            return {
+                sums:0
+            }
+        },
+        methods: {
+            getcount(val) {
+                console.log(val)
+                this.sums = val;
+            }
+        },
+        components: {
+            'tepone': {
+                template: '#tepone',
+                data: function() {
+                  return {
+                      count:0
+                  }
+                },
+                methods: {
+                    add() {
+                        this.count++;
+                        this.$emit('getchange' , this.count);
+                    },
+                    sub() {
+                        this.count--;
+                        this.$emit('getchange' , this.count);
+                    }
+                }
+            },
+            'tep2':{
+                template:'#tep2',
+                props:['sums']
+            }
+        }
+    });
 
     new Vue({
         el:'#app',
