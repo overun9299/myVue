@@ -3,13 +3,78 @@
 <head>
     <meta charset="UTF-8">
     <title>2.router-link的使用及默认加载</title>
+    <script src="../../js/vue.js"></script>
+    <script src="../../js/vue-router.js"></script>
+
+    <style>
+        .nj-active {
+            background-color: aqua;
+        }
+    </style>
 </head>
 <body>
-$END$
+    <div id="app">
+
+
+        <!--
+        如果是通过router-link来设置URL的HASH值, 那么不用写#, 那么是通过to属性来设置HASH值
+        -->
+        <!--
+        默认情况下Vue在渲染router-link的时候, 是通过a标签来渲染的
+        如果在企业开发中不想使用a标签来渲染, 那么可以通过tag属性来告诉vue通过什么标签来渲染
+        -->
+
+        <router-link to="/one"  tag="button">第一模板</router-link>
+        <router-link to="/two">第er模板</router-link>
+
+        <router-view></router-view>
+    </div>
+
+    <template id="one">
+        <div>
+            <p>第一模板</p>
+        </div>
+    </template>
+
+    <template id="two">
+        <div>
+            <p>第二模板</p>
+        </div>
+    </template>
 </body>
 
 <script type="text/javascript">
 
+    const one = {
+        template:'#one'
+    };
+
+    const two = {
+        template:'#two'
+    }
+
+    const routes = [
+        // 重定向路由
+        {path:'/', redirect:'/one'},
+        // 数组中的每一个对象就是一条规则
+        {path:'/one' , component: one},
+        {path:'/two' , component: two}
+    ]
+
+    const router = new VueRouter({
+        routes:routes,
+        // 指定导航激活状态样式类名
+        linkActiveClass: "nj-active"
+    })
+
+    new Vue({
+        el:'#app',
+        router: router,
+        components: {
+            one:one,
+            two:two
+        }
+    })
 </script>
 
 </html>

@@ -3,13 +3,81 @@
 <head>
     <meta charset="UTF-8">
     <title>1.VueRouter基本使用</title>
+    <script src="../../js/vue.js"></script>
+    <script src="../../js/vue-router.js"></script>
 </head>
 <body>
-$END$
+
+<!--
+1.什么是Vue Router?
+Vue Router和v-if/v-show一样, 是用来切换组件的显示的
+v-if/v-show是标记来切换(true/false)
+Vue Router用哈希来切换(#/xxx)
+比v-if/v-show强大的是Vue Router不仅仅能够切换组件的显示, 还能够在切换的时候传递参数
+
+2.Vue Router使用
+2.1导入Vue Router
+2.2定义路由规则
+2.3根据路由规则创建路由对象
+2.4将路径对象挂载到Vue实例中
+2.5修改URL哈希值
+2.6通过<router-view>渲染匹配的组件
+-->
+
+<div id="app">
+    <a href="#/one">模板一</a>
+    <a href="#/two">模板二</a>
+
+
+    <!-- 路由出口 -->
+    <!-- 路由匹配到的组件将渲染在这里 -->
+    <router-view></router-view>
+</div>
+<template id="one">
+    <div>
+        <p>我是模板一</p>
+    </div>
+</template>
+<template id="two">
+    <div>
+        <p>我是模板二</p>
+    </div>
+</template>
 </body>
 
 <script type="text/javascript">
 
+    // 1.定义组件
+    const one = {
+        template:'#one'
+    };
+    const two = {
+        template: '#two'
+    }
+
+    // 2.定义切换的规则(定义路由规则)
+    const routers = [
+        {path:'/one' , component: one},
+        {path:'/two' , component: two}
+    ];
+
+    // 3.根据自定义的切换规则创建路由对象
+    const router = new VueRouter({
+        routes:routers
+    })
+
+
+    new Vue({
+        el:'#app',
+        data: {
+
+        },
+        router:router,
+        components: {
+            one:one,
+            two:two
+        }
+    })
 </script>
 
 </html>
