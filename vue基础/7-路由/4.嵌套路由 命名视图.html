@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <meta charset="UTF-8">
+  <title>4.嵌套路由</title>
+  <script src="../../js/vue.js"></script>
+  <script src="../../js/vue-router.js"></script>
+
+  <style>
+
+    .active-class {
+      background-color: cyan;
+    }
+
+    .fone {
+      width: 500px;
+      height: 500px;
+      background-color: cyan;
+    }
+  </style>
+</head>
+<body>
+<!--
+1.什么是嵌套路由?
+嵌套路由也称之为子路由, 就是在被切换的组件中又切换其它子组件
+例如: 在one界面中又有两个按钮, 通过这两个按钮进一步切换one中的内容
+-->
+<!--这里就是MVVM中的View-->
+<div id="app">
+  <router-link tag="button" to="/one">第一个</router-link>
+  <router-link tag="button" to="/two">第二个</router-link>
+  <router-view></router-view>
+</div>
+<template id="one">
+  <div class="fone">
+    <p>
+      第一个内容
+      <router-link tag="button" to="/one/sone">第一个</router-link>
+      <router-link tag="button" to="/one/stwo">第二个</router-link>
+
+      <!--和具名插槽一样, 如果想同时显示多个不同的组件, 那么可以给出口指定名称
+    1.在路由规则中给组件起名称
+    2.在出口中指定显示哪个名称的组件-->
+      <router-view name="super"></router-view>
+    </p>
+  </div>
+</template>
+<template id="two">
+  <div class="ftwo">
+    <p>
+      第二个内容
+    </p>
+  </div>
+</template>
+<template id="sone">
+  <div class="ftwo">
+    <p>
+      第一个内容子内容
+    </p>
+  </div>
+</template>
+<template id="stwo">
+  <div class="ftwo">
+    <p>
+      第二个内容子内容
+    </p>
+  </div>
+</template>
+</body>
+<script type="text/javascript">
+
+
+  const two = {
+    template: '#two'
+  }
+  const sone = {
+    template: '#sone'
+  }
+  const stwo = {
+    template: '#stwo'
+  }
+
+  const one = {
+    template:'#one',
+    components:{
+      sone:sone,
+      stwo:stwo
+    }
+  }
+
+  const routes = [
+    {path:'/one' ,component:one , children:[
+        // 注意点: 如果是嵌套路由(子路由), 那么不用写一级路径的地址, 并且也不用写/
+        {path:'sone' , components:{
+          // 此处对应<router-view name="super"   key:value形式
+          super:sone
+          }},
+        {path:'stwo' , component:stwo}
+      ]},
+    {path:'/two' ,component:two},
+  ]
+
+  const router = new VueRouter({
+    routes:routes,
+    linkActiveClass: 'active-class'
+  })
+
+  new Vue({
+    el:'#app',
+    router:router,
+    data: {
+
+    },
+    components : {
+      one:one,
+      two:two
+    }
+  })
+</script>
+</html>
