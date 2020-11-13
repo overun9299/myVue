@@ -1,19 +1,6 @@
 # vue-one
 
-## Project setup
-```
-npm install
-```
-
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
-
-### Compiles and minifies for production
-```
-npm run build
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+一个空项目架构
+ * 1.在public下班创建index.html
+ * 2.在src下班创建main.js 并创建Vue实例(不推荐) 
+ * 3.在src下面创建app.vue
