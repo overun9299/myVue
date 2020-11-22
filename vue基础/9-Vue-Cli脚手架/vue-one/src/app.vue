@@ -5,12 +5,12 @@
         <p>123</p>
         <button @click="logInfo">完成</button>
         <button @click="getPublicData">获取共享数据</button>
-        <!--<One></One>-->
-        <!--<Two></Two>-->
-
+<!--        <One></One>-->
+<!--        <Two></Two>-->
+        <br>
         <router-link to="/one" tag="button">Go To One</router-link>
-        <router-link to="/two" tag="button">Go To Two</router-link>
-        <router-view></router-view>
+        <router-link to="/twos" tag="button">Go To Two</router-link>
+        <router-view/>
     </div>
 </template>
 
